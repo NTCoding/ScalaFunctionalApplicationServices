@@ -1,0 +1,34 @@
+@(form: Form[_])
+
+<html>
+  <head>
+    <title>Recommend a Friend</title>
+  </head>
+  <body>
+    <h1>Recommend a friend!</h1>
+    <em>Earn a gold loyalty upgrade by simply recommending a friend to join us.</em>
+
+    @if(form.hasErrors) {
+      <h2>Sorry, there were problems....</h2>
+      <ul>
+        @form.errors.map { e =>
+          <li>@e.key - @e.messages.head</li>
+        }
+      </ul>
+    }
+
+    <form action="@routes.Referrals.post" method="post">
+      <input type="hidden" name="userId" value="testUserId" />
+      <p>
+        Friend's email: <input type="email" name="newAccount.email" />
+      </p>
+      <p>
+        Friend's nickname: <input type="text" name="newAccount.nickname" />
+      </p>
+      <p>
+        Friend's age: <input type="number" name="newAccount.age" />
+      </p>
+      <button>Recommend us baby!</button>
+    </form>
+  </body>
+</html>
