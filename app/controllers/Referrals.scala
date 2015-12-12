@@ -1,26 +1,18 @@
 package controllers
 
-import javax.inject.Inject
+import infrastructure.EventProcessor.InterpretEvents
+import infrastructure.ImplicitLifting._
 import play.api._
-import play.api.mvc._
-import play.api.mvc.Action
-import play.api.mvc.Results._
 import play.api.data.Form
 import play.api.data.Forms._
-
-import useCases._
-import useCases.RecommendAFriend.RecommendAFriend
-import infrastructure.ImplicitLifting._
-import infrastructure.EventProcessor.InterpretEvents
-import config.Wiring
-
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.mvc.Action
+import play.api.mvc.Results._
+import useCases.RecommendAFriend.RecommendAFriend
+import useCases._
 
-class Referrals () {
-	// TODO - wire up with DI (not so simple using aliases)
-	def recommendAFriend = Wiring.recommendAFriend
-	def interpret: InterpretEvents = Wiring.interpretEvents
-	
+class Referrals (recommendAFriend: RecommendAFriend, interpret: InterpretEvents) {
+
 	def get = Action { 
 		Ok(views.html.recommendAFriend(referralForm))
 	}

@@ -14,5 +14,5 @@ object EventProcessor {
 	type InterpretEvents = Seq[Event] => Future[Unit]
 	
 	def apply(es: Seq[Event]): Future[Unit] =
-		es.foreach { e => println("Processing event: $e") }
+		es.foreach { e => println(s"Processing event: $e") }
 }
